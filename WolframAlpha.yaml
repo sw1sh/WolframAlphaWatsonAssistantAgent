@@ -1,0 +1,8 @@
+version: 4
+meta:
+  name: WolframAlpha
+  icon: >-
+    https://static.appvn.com/a/uploads/thumbnails/052011/hi-256-1-b42dc8c36fece5214aec1dce8d498dc8e17a4e0d
+secrets:
+  - name: AppID
+    notes: ''
