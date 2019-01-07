@@ -6,6 +6,36 @@ meta:
 secrets:
   - name: AppID
     notes: ''
+concepts:
+  - name: ':Message'
+  - name: ':Relation'
+  - name: ':ActionShow'
+endpoints:
+  - name: '@fallback'
+    kind: 'nodejs:10'
+    code: |
+      const WolframAlphaAPI = require('./WolframAlphaAPI.js');
+
+      module.exports.main = async (params) => {
+        const waApi = WolframAlphaAPI(params.secrets.AppID);
+
+        let question = params.input['@question']
+        let answer = await waApi.getShort(question);
+
+        return {
+          output: {
+            name: ':Message',
+            type: 'data',
+            tags: ['fallback'],
+            data: {
+              name: ':Message',
+              data: answer,
+              text: 'Wolfram Alpha have returned the following answer to your question.'
+            }
+          }
+        }
+      }
+    notes: ''
 statics:
   - name: WolframAlphaAPI.js
     mime: text/javascript
@@ -348,3 +378,4 @@ statics:
         return new WolframAlphaAPI(appid);
       }
       module.exports = initializeClass;
+    backend: true
